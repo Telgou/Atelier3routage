@@ -1,0 +1,7 @@
+<ul>
+    <li *ngFor=" let fact of list">
+        Facture : {{fact.idFacture}}
+        <a [routerLink]="['/invoice/',fact.idFacture,fact.active]">Details</a>
+        <a (click)="handlenav(fact)" style="padding-left: 1%; cursor: pointer;" class="x"> Details with query params</a>
+    </li>
+</ul>

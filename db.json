@@ -1,0 +1,32 @@
+{
+  "invoices": [
+    {
+      "id": 1,
+      "discountAmount": 10,
+      "billAmount": 60,
+      "dateBill" : "01-01-2024",
+      "Status": 1
+    },
+    {
+      "id": 2,
+      "discountAmount": 20,
+      "billAmount": 140,
+      "dateBill" : "01-01-2024",
+      "Status": 1
+    },
+    {
+      "id": 3,
+      "discountAmount": 30,
+      "billAmount": 280,
+      "dateBill" : "01-01-2024",
+      "Status": 0
+    },
+    {
+      "id": 4,
+      "discountAmount": 30,
+      "billAmount": 280,
+      "dateBill" : "01-01-2024",
+      "Status": 0
+    }
+  ]
+}

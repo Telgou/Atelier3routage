@@ -1,14 +1,34 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { InvoiceComponent } from './invoice/invoice.component';
-import { MainInvoiceComponent } from './main-invoice/main-invoice.component';
+import { HeaderComponent } from './components/header/header.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
-  { path: "invoicemanagement", component: MainInvoiceComponent },
-  { path: 'invoice/:id/:active', component: InvoiceComponent },
-  { path: 'invoice', component: InvoiceComponent },
-  { path: '**', component: MainInvoiceComponent },
-
+  { path: 'home', component: HeaderComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  {
+    path: 'maininvoice',
+    loadChildren: () =>
+      import('./features/Invoice/Invoice.module').then((m) => m.InvoiceModule),
+  },
+  {
+    path: 'fournisseur',
+    loadChildren: () =>
+      import('./features/fournisseur/fournisseur.module').then(
+        (m) => m.FournisseurModule
+      ),
+  },
+  {
+    path: 'product',
+    loadChildren: () =>
+      import('./features/product/product.module').then((m) => m.ProductModule),
+  },
+  {
+    path: 'user',
+    loadChildren: () =>
+      import('./features/user/user.module').then((m) => m.UserModule),
+  },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({

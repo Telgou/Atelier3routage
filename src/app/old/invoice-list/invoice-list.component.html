@@ -1,7 +1,45 @@
 <ul>
+    <button (click)="enableform(1)"> Add a fact</button>
     <li *ngFor=" let fact of list">
         Facture : {{fact.id}}
         <a [routerLink]="['/maininvoice/invoice/',fact.id,fact.id]">Details</a>
         <a (click)="handlenav(fact)" style="padding-left: 1%; cursor: pointer;" class="x"> Details with query params</a>
+        <button (click)="enableform(2,fact)" style="margin-left: 10%;"> Modify</button>
+        <button (click)="remove(fact)" style="margin-left: 1%;"> Remove</button>
     </li>
 </ul>
+<form #f="ngForm" *ngIf="addform||modifyform" (ngSubmit)="addform == true ? add(f.value) : modify(f.value)">
+
+    <div class="mb-3">
+        <label class="form-label">Id</label>
+        <input class="form-control" name="id" type="number" [(ngModel)]="invoice.id" required #id="ngModel"
+            value={{invoice.id}}>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">discount</label>
+        <input class="form-control" name="discountAmount" type="number" [(ngModel)]="invoice.discountAmount" required
+            #discountAmount="ngModel">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">billAmount</label>
+        <input class="form-control" name="billAmount" type="number" [(ngModel)]="invoice.billAmount" required
+            #billAmount="ngModel">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">datebill</label>
+        <input class="form-control" name="dateBill" type="text" [(ngModel)]="invoice.dateBill" required
+            #dateBill="ngModel">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">status</label>
+        <select class="form-control" name="Status" type="text" [(ngModel)]="invoice.Status" required #Status="ngModel">
+            <option>1</option>
+            <option>0</option>
+        </select>
+    </div>
+
+
+    <div class="mb-3">
+        <input type="submit" [value]="addform == true ? 'Add fact' : 'Modify fact' " />
+    </div>
+</form>

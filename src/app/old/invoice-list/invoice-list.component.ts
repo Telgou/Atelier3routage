@@ -9,9 +9,25 @@ import { InvoiceService } from 'src/app/services/invoice.service';
   styleUrls: ['./invoice-list.component.css']
 })
 export class InvoiceListComponent {
-  list : Invoice[] = [];
+  list: Invoice[] = [];
+  invoice: Invoice = new Invoice() || null;
+  addform: boolean = false;
+  modifyform: boolean = false;
   constructor(private router: Router, private _invoiceService: InvoiceService) { }
 
+  enableform(x: number, invoice?: Invoice) {
+    if (x == 1) {
+      this.modifyform = false;
+      this.invoice = new Invoice(); // Reset the invoice object
+      this.addform = true;
+    }
+    else {
+      this.addform = false;
+      this.modifyform = true;
+      if (invoice !== undefined) this.invoice = invoice;
+      console.log(invoice)
+    }
+  }
   handlenav(fact: Invoice) {
     this.router.navigate(['/maininvoice/invoice'], { queryParams: { id: fact.id, Status: fact.Status } });
   }
@@ -20,28 +36,44 @@ export class InvoiceListComponent {
     console.log("I m mounted");
     //this.list = this._invoiceService.listInvoice;
     //this.listUsers = this._userService.getAllUsers();
-    this._invoiceService.fetchUsers().subscribe({
+    this.fetch();
+  }
+  fetch() {
+    this._invoiceService.fetchInvoices().subscribe({
       next: (data) => this.list = data as Invoice[],
-      error: (err) => console.log("error")
+      error: (err) => console.log(err)
     }
     );
   }
+  add(fact: Invoice) {
+    console.log(fact)
+    this._invoiceService.addInvoice(fact).subscribe({
+      next: (data) => {
+        this.invoice = data as Invoice;
+        this.fetch();
+      },
+      error: (err) => console.log(err)
+    })
+  }
+
+  modify(fact: Invoice) {
+    this._invoiceService.updateInvoice(fact.id, fact).subscribe({
+      next: () => {
+        this.fetch();
+      },
+      error: (err) => console.log(err)
+    })
+  }
+
+  remove(fact: Invoice) {
+    this._invoiceService.removeInvoice(fact.id).subscribe({
+      next: (data) => {
+        this.list = data as Invoice[];
+        this.fetch();
+      },
+      error: (err) => console.log(err)
+    })
+  }
+
+
 }
-export const list: Invoice[] = [
-  {
-    id: 1, billAmount: 120, discountAmount: 10, dateBill: "12/12/2021",
-    Status: true
-  },
-  {
-    id: 2, billAmount: 1020, discountAmount: 90, dateBill: "22/11/2020"
-    , Status: true
-  },
-  {
-    id: 3, billAmount: 260, discountAmount: 30, dateBill: "18/10/2020",
-    Status: false
-  },
-  {
-    id: 4, billAmount: 450, discountAmount: 40, dateBill: "14/12/2020",
-    Status: true
-  },
-]

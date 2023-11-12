@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Invoice } from '../models/Invoice';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -9,9 +9,9 @@ import { environment } from 'src/environments/environment.development';
 })
 export class InvoiceService {
 
-  apiurl = environment.baseUrl+'invoices/';
+  apiurl = environment.baseUrl + 'invoices/';
   list: string[] = ['a', 'b'];
-  listInvoice! : Invoice[];
+  listInvoice!: Invoice[];
 
   constructor(private _http: HttpClient) {
   }
@@ -34,17 +34,23 @@ export class InvoiceService {
     return list.filter((e: any) => e[attribute] === attributeVal).length;
   }
 
-  fetchUsers() {
-    return this._http.get(this.apiurl);
+  fetchInvoices(): Observable<Invoice[]> {
+    console.log(this._http.get<Invoice[]>(this.apiurl));
+    return this._http.get<Invoice[]>(this.apiurl);
   }
   fetchInvoiceById(id: number) {
     return this._http.get(this.apiurl + id);
   }
-  addInvoice(user: Invoice) {
-    return this._http.post(this.apiurl, Invoice);
+  addInvoice(invoice: Invoice): Observable<Invoice> {
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this._http.post<Invoice>(this.apiurl, invoice, httpOptions);
   }
-  updateInvoice(id: number, user: Invoice) {
-    return this._http.put(this.apiurl + id, Invoice);
+  updateInvoice(id: number, invoice: Invoice) {
+    return this._http.put(this.apiurl + id, invoice);
   }
   removeInvoice(id: number) {
     return this._http.delete(this.apiurl + id);

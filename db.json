@@ -4,29 +4,57 @@
       "id": 1,
       "discountAmount": 10,
       "billAmount": 60,
-      "dateBill" : "01-01-2024",
+      "dateBill": "01-01-2024",
       "Status": 1
     },
     {
       "id": 2,
       "discountAmount": 20,
       "billAmount": 140,
-      "dateBill" : "01-01-2024",
+      "dateBill": "01-01-2024",
       "Status": 1
     },
     {
       "id": 3,
       "discountAmount": 30,
       "billAmount": 280,
-      "dateBill" : "01-01-2024",
+      "dateBill": "01-01-2024",
       "Status": 0
     },
     {
       "id": 4,
       "discountAmount": 30,
       "billAmount": 280,
-      "dateBill" : "01-01-2024",
+      "dateBill": "01-01-2024",
       "Status": 0
+    },
+    {
+      "id": 5,
+      "discountAmount": 5,
+      "billAmount": 5,
+      "dateBill": "5",
+      "Status": "1"
+    },
+    {
+      "id": 6,
+      "discountAmount": 6,
+      "billAmount": 6,
+      "dateBill": "6",
+      "Status": "1"
+    },
+    {
+      "id": 7,
+      "discountAmount": 7,
+      "billAmount": 7,
+      "dateBill": "7",
+      "Status": "0"
+    },
+    {
+      "id": 8,
+      "discountAmount": 8,
+      "billAmount": 8,
+      "dateBill": "8",
+      "Status": "0"
     }
   ]
 }
